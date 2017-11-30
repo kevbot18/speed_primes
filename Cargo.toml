@@ -1,0 +1,6 @@
+[package]
+name = "speed_primes"
+version = "0.1.0"
+authors = ["kmingalls2018"]
+
+[dependencies]
