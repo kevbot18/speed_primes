@@ -57,11 +57,9 @@ fn main() {
 fn num_primes(num: u32, show_primes: bool) -> u32 {
 	let mut count: u32 = 0;
 	let elements = if num % 8 == 0 { num / 8 } else { num / 8 + 1 };
-	let mut is_prime: Vec<u8> = Vec::with_capacity(elements as usize);
-	// println!("{}", elements); // used for debugging the vector length
 
 	// create new "data type" to fix bool=byte storage issue (reduce mem usage by 8)
-	is_prime = vec![0b11111111; elements as usize]; // assigns 1's to every digit
+	let mut is_prime = vec![0b11111111; elements as usize]; // assigns 1's to every digit
 	// makes all evens NOT prime
 	for e in 0..elements as usize {
 		let mut index = 0; // keeps track of place value
