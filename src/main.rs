@@ -64,7 +64,9 @@ fn num_primes(num: u32, show_primes: bool) -> u32 {
 	for e in 0..elements as usize {
 		let mut index = 0; // keeps track of place value
 		while index <= 8 { // using while to count by 2's (why, Rust, why?)
-			is_prime[e] &= !(2u8.pow(index) as u8); // &'s input with inverse of 2^(digit place)
+			// allow, but ignore, overflow. Enables running in debug mode.
+			let (inverse, _) = 2u8.overflowing_pow(index);
+			is_prime[e] &= !inverse; // &'s input with inverse of 2^(digit place)
 			index += 2;
 		}
 	}
