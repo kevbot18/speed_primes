@@ -33,6 +33,45 @@
 
 use std::env;
 
+//// unit tests ////
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	// Checks that passing in 0 does not crash the program
+	#[test]
+	fn zero_input() {
+		num_primes(0, false);
+		num_primes(0, true);
+
+		assert_eq!(num_primes(0, false), 0);
+		assert_eq!(num_primes(0, true), 0);
+	}
+
+	// checks that both printed and non-printed prime counts are equal
+	#[test]
+	fn print_hidden_equal() {
+		let values = [5, 26, 45, 250, 3060, 5000];
+		for i in values.iter() {
+			assert_eq!(
+				num_primes(*i, false),
+				num_primes(*i, true)
+			)
+		}
+	}
+
+	// tests around array byte boundaries where errors are more likely to be present
+	#[test]
+	fn around_boundaries() {
+		let values = [1, 7, 8, 9, 255, 256, 257];
+		for i in values.iter() {
+			assert_eq!(
+				num_primes(*i, false),
+				num_primes(*i, true)
+			)
+		}
+	}
+}
 
 fn main() {
 	// takes user imput and puts it in a vector
@@ -54,6 +93,15 @@ fn main() {
 }
 
 fn num_primes(num: u64, show_primes: bool) -> u32 {
+
+	// avoids crash on input of 0
+	if num == 0 {
+		if show_primes {
+			println!();
+		}
+		return 0;
+	}
+
 	let mut count: u32 = 0;
 	let elements = if num % 16 == 0 { num / 16 } else { num / 16 + 1 };
 
