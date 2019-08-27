@@ -66,7 +66,7 @@ fn num_primes(num: u64, show_primes: bool) -> u32 {
 	let root = isqrt(num);
 	let mut i:usize = 3;
 	while i < (root + 1) as usize { // only check to the square
-		if is_prime[i / 16] >> ((i/2) % 16) & 1 == 1 { // checks if bit of current number (i) is high
+		if is_prime[i / 16] >> ((i/2) % 8) & 1 == 1 { // checks if bit of current number (i) is high
 			let mut k: usize = i;
 			while k * i <= num as usize { // only check to number
 				is_prime[(i * k) / 16] &= !(1u8 << (((i * k)/2) % 8) as u8); // sets bit to low using AND NOT
