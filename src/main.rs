@@ -94,6 +94,15 @@ fn main() {
 }
 
 fn num_primes(num: u32, show_primes: bool) -> u32 {
+
+	// avoids crash on input of 0
+	if num == 0 {
+		if show_primes {
+			println!();
+		}
+		return 0;
+	}
+
 	let mut count: u32 = 0;
 	let elements = if num % 8 == 0 { num / 8 } else { num / 8 + 1 };
 
